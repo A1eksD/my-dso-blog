@@ -10,6 +10,7 @@ This repository hosts a developer blog built with Docusaurus. It includes tools 
 
 - [My Developer Blog](#my-developer-blog)
   - [Repository Description](#repository-description)
+  - [V-Server connection via ssk-key](#v-server-connection-via-ssk-key)
   - [Table of Contents](#table-of-contents)
   - [Quickstart](#quickstart)
     - [Prerequisites](#prerequisites)
@@ -18,6 +19,36 @@ This repository hosts a developer blog built with Docusaurus. It includes tools 
     - [Deploy to Github Pages](#deploy-to-github-pages)
     - [Deploying using NGINX](#deploying-using-nginx)
     - [Contributing](#contributing)
+
+## V-Server connection via ssk-key
+
+1. - Get a server
+
+2. - Generate an SSH key on your PC:
+   ```
+   $ ssh-keygen -t ed25519
+   ```
+
+3. - Log in to your V-Server and copy the key:
+   ```
+   $ ssh-copy-id -i <path to your ssh-key.pub on your pc> <server-user>@<server-name>
+   ```
+   The console should print: `Number of key(s) added: 1`
+   Make sure the path to your public key is correct.
+
+4. - Connect to your V-Server:
+   ```
+   $ ssh -i <path to ssh-key (not .pub) on your pc> <server-user>@<server-name>
+   ```
+   ### Disable Password-Login (optional)
+
+   In this section information about disabling password based logins will be provided.
+   Passwords can be a source of error potential which is why password logins should be disabled in favor of authenticating via SSH-Keys. 💡
+
+   1. Adjust the configuration under `/etc/ssh/sshd_config`
+   1. Find and edit the line `#PasswordAuthentication yes` to that `PasswordAuthentication no`.
+   1. Save the file and exit
+   1. Restart the `sshd` service to reload the config changes
 
 ## Quickstart
 
